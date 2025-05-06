@@ -24,8 +24,10 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www
 
 COPY . .
+COPY .env.production .env
 
 RUN composer install
+RUN php artisan config:clear && php artisan config:cache
 
 EXPOSE 8000
 
