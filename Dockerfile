@@ -25,7 +25,7 @@ WORKDIR /var/www
 
 COPY . .
 
-RUN composer install && php artisan key:generate
+RUN composer install
 
 EXPOSE 8000
 
