@@ -26,11 +26,3 @@ Route::post('/logout', function () {
     Auth::logout();
     return response()->json(['message' => 'Logged out']);
 });
-
-Route::get('/run-seeder', function () {
-    if (app()->environment('production')) {
-        Artisan::call('migrate:fresh --seed');
-        return 'Seeder executed!';
-    }
-    return abort(403, 'Not allowed in this environment');
-});
