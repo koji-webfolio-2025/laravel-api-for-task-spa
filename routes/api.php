@@ -29,6 +29,6 @@ Route::post('/logout', function () {
 });
 
 Route::get('/test-cors', function () {
-    Log::info('CORS route hit');
+    \Illuminate\Support\Facades\Log::info('CORS check route was hit!');
     return response()->json(['message' => 'CORS OK']);
 });
