@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\TaskController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Log;
 
 // 動作確認用エンドポイント
 Route::get('/test', function () {
@@ -25,4 +26,9 @@ Route::middleware('api')->get('/tasks', [TaskController::class, 'index']);
 Route::post('/logout', function () {
     Auth::logout();
     return response()->json(['message' => 'Logged out']);
+});
+
+Route::get('/test-cors', function () {
+    Log::info('CORS route hit');
+    return response()->json(['message' => 'CORS OK']);
 });

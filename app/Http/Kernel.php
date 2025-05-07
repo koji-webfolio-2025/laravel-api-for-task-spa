@@ -8,7 +8,7 @@ use Illuminate\Http\Middleware\HandleCors;
 class Kernel extends HttpKernel
 {
     protected $middleware = [
-        \Illuminate\Http\Middleware\HandleCors::class,
+        HandleCors::class,
     ];
 
     protected $middlewareGroups = [
