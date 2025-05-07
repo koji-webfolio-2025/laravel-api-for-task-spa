@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: laravel-api-for-task-spa
+    env: docker
+    buildCommand: ""
+    startCommand: "php artisan serve --host 0.0.0.0 --port 10000"
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: true
+      - key: DB_CONNECTION
+        value: sqlite
+      # 他の環境変数もここで定義可能
+    routes:
+      - type: rewrite
+        source: /api/(.*)
+        destination: http://localhost:10000/api/$1
