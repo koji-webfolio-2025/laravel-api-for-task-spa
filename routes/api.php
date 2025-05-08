@@ -3,8 +3,8 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\TaskController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
 
 // 動作確認用エンドポイント
 Route::get('/test', function () {
@@ -12,7 +12,7 @@ Route::get('/test', function () {
 });
 
 // CSRFトークン取得（開発用）
-Route::get('/csrf-token', function () {
+Route::middleware('web')->get('/csrf-token', function () {
     return response()->json(['csrf_token' => csrf_token()]);
 });
 
