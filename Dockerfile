@@ -39,3 +39,5 @@ EXPOSE ${PORT}
 
 # Start Laravel dev server
 CMD php artisan serve --host=0.0.0.0 --port=${PORT}
+
+COPY .env.production .env
