@@ -25,7 +25,7 @@ WORKDIR /var/www
 
 # Copy application files
 COPY . .
-
+COPY .env.production .env
 # Install dependencies and cache configs
 RUN composer install --no-dev --optimize-autoloader && \
     php artisan config:clear && \
@@ -40,4 +40,3 @@ EXPOSE ${PORT}
 # Start Laravel dev server
 CMD php artisan serve --host=0.0.0.0 --port=${PORT}
 
-COPY .env.production .env
