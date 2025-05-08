@@ -31,10 +31,10 @@ RUN composer install --no-dev --optimize-autoloader && \
     php artisan config:clear && \
     php artisan config:cache && \
     php artisan route:cache && \
-    php artisan view:cache && \
+    php artisan view:cache
 
-    # Expose port
-    EXPOSE ${PORT}
+# Expose port
+EXPOSE ${PORT}
 
 # Start Laravel dev server
 CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT}
