@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\TaskController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -16,10 +17,6 @@ Route::middleware('web')->get('/csrf-token', function () {
 
 // ログインAPI（レートリミット付き）
 Route::post('/login', [AuthController::class, 'login'])->middleware(['throttle:login']);
-/*Route::match(['OPTIONS', 'POST'], '/login', function () {
-Log::info('login route hit');
-return response()->json(['status' => 'ok']);
-})->middleware(['api']);*/
 
 // タスクAPI
 Route::apiResource('tasks', TaskController::class);
@@ -29,8 +26,3 @@ Route::post('/logout', function () {
     Auth::logout();
     return response()->json(['message' => 'Logged out']);
 });
-
-/*Route::get('/test-cors', function () {
-Log::info('CORS check route was hit!');
-return response()->json(['message' => 'CORS OK']);
-});*/
