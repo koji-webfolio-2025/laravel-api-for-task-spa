@@ -17,10 +17,10 @@ Route::middleware('web')->get('/csrf-token', function () {
 
 // ログインAPI（レートリミット付き）
 //Route::post('/login', [AuthController::class, 'login'])->middleware(['throttle:login']);
-Route::middleware(['api'])->post('/login', function () {
-    Log::info('fallback /login ルートが呼ばれました');
+Route::match(['OPTIONS', 'POST'], '/login', function () {
+    Log::info('login route hit');
     return response()->json(['status' => 'ok']);
-});
+})->middleware(['api']);
 
 // タスクAPI
 Route::apiResource('tasks', TaskController::class);
