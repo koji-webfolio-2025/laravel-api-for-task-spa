@@ -27,7 +27,7 @@ WORKDIR /var/www
 COPY . .
 COPY .env.production .env
 # Install dependencies and cache configs
-RUN composer install --no-dev --optimize-autoloader && \
+RUN composer install --optimize-autoloader && \
     php artisan config:clear && \
     php artisan config:cache && \
     php artisan route:cache && \
