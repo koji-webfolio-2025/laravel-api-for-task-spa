@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 class Kernel extends HttpKernel
 {
     protected $middleware = [
-        \Fruitcake\Cors\HandleCors::class,
+        //\Fruitcake\Cors\HandleCors::class,
     ];
 
     protected $middlewareGroups = [
