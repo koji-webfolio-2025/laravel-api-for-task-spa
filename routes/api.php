@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\TaskController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 // 動作確認用エンドポイント
@@ -16,11 +15,11 @@ Route::middleware('web')->get('/csrf-token', function () {
 });
 
 // ログインAPI（レートリミット付き）
-//Route::post('/login', [AuthController::class, 'login'])->middleware(['throttle:login']);
-Route::match(['OPTIONS', 'POST'], '/login', function () {
-    Log::info('login route hit');
-    return response()->json(['status' => 'ok']);
-})->middleware(['api']);
+Route::post('/login', [AuthController::class, 'login'])->middleware(['throttle:login']);
+/*Route::match(['OPTIONS', 'POST'], '/login', function () {
+Log::info('login route hit');
+return response()->json(['status' => 'ok']);
+})->middleware(['api']);*/
 
 // タスクAPI
 Route::apiResource('tasks', TaskController::class);
@@ -31,7 +30,7 @@ Route::post('/logout', function () {
     return response()->json(['message' => 'Logged out']);
 });
 
-Route::get('/test-cors', function () {
-    Log::info('CORS check route was hit!');
-    return response()->json(['message' => 'CORS OK']);
-});
+/*Route::get('/test-cors', function () {
+Log::info('CORS check route was hit!');
+return response()->json(['message' => 'CORS OK']);
+});*/
