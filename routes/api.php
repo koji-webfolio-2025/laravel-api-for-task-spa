@@ -26,3 +26,7 @@ Route::post('/logout', function () {
     Auth::logout();
     return response()->json(['message' => 'Logged out']);
 });
+
+Route::middleware('auth:sanctum')->get('/user', function (\Illuminate\Http\Request $request) {
+    return response()->json(['user' => $request->user()]);
+});
