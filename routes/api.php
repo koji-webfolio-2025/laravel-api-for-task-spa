@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\TaskController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -17,7 +16,10 @@ Route::middleware('web')->get('/csrf-token', function () {
 });
 
 // ログインAPI（レートリミット付き）
-Route::post('/login', [AuthController::class, 'login'])->middleware(['throttle:login']);
+//Route::post('/login', [AuthController::class, 'login'])->middleware(['throttle:login']);
+Route::post('/login', function () {
+    return response()->json(['status' => 'ok']);
+});
 
 // タスクAPI
 Route::apiResource('tasks', TaskController::class);
