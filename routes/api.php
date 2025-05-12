@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\TaskController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
 
 // 動作確認用エンドポイント
 Route::get('/test', function () {
@@ -30,3 +31,5 @@ Route::post('/logout', function () {
 Route::middleware('auth:sanctum')->get('/user', function (\Illuminate\Http\Request $request) {
     return response()->json(['user' => $request->user()]);
 });
+
+Route::get('/sanctum/csrf-cookie', [CsrfCookieController::class, 'show']);
