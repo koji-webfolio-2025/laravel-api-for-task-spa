@@ -16,3 +16,7 @@ Route::get('/sanctum/csrf-cookie', function () {
 Route::get('/test-cors', function () {
     return response()->json(['message' => 'web.php CORS OK']);
 });
+
+Route::get('/app/{any}', function () {
+    return file_get_contents(public_path('app/index.html'));
+})->where('any', '.*');
