@@ -23,8 +23,13 @@ Route::post('/login', [AuthController::class, 'login'])->middleware(['throttle:l
 Route::apiResource('tasks', TaskController::class);
 
 Route::middleware('api')->get('/tasks', [TaskController::class, 'index']);
-Route::post('/logout', function () {
+
+Route::post('/logout', function (Request $request) {
     Auth::logout();
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
     return response()->json(['message' => 'Logged out']);
 });
 
@@ -32,4 +37,4 @@ Route::middleware('auth:sanctum')->get('/user', function (\Illuminate\Http\Reque
     return response()->json(['user' => $request->user()]);
 });
 
-Route::get('/sanctum/csrf-cookie', [CsrfCookieController::class, 'show']);
+Route::middleware('web')->get('/sanctum/csrf-cookie', [CsrfCookieController::class, 'show']);
