@@ -50,12 +50,11 @@ laravel-api-full/
 ├── app/Http/Controllers/
 └── ...
 
-📄 使用方法（ローカル開発）
+---
+
+##📄 使用方法（ローカル開発）
 Laravel APIの起動：
 
-bash
-コピーする
-編集する
 composer install
 cp .env.example .env
 php artisan key:generate
@@ -63,9 +62,6 @@ php artisan migrate
 php artisan serve
 Vue フロントの起動：
 
-bash
-コピーする
-編集する
 cd vue-app
 npm install
 npm run dev
