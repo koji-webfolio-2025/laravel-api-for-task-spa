@@ -33,8 +33,17 @@ Route::post('/logout', function (Request $request) {
     return response()->json(['message' => 'Logged out']);
 });
 
-Route::middleware('auth:sanctum')->get('/user', function (\Illuminate\Http\Request $request) {
-    return response()->json(['user' => $request->user()]);
+/*Route::middleware('auth:sanctum')->get('/user', function (\Illuminate\Http\Request $request) {
+return response()->json(['user' => $request->user()]);
+});*/
+
+Route::get('/user', function () {
+    return response()->json([
+        'user' => [
+            'name' => 'Demo User',
+            'email' => 'demo@example.com',
+        ],
+    ]);
 });
 
 Route::middleware('web')->get('/sanctum/csrf-cookie', [CsrfCookieController::class, 'show']);
