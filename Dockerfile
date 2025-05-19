@@ -1,41 +1,18 @@
 FROM php:8.2-fpm
 
-# Install system dependencies
+# 必要なパッケージをインストール
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg-dev \
+    git \
+    unzip \
+    zip \
+    libzip-dev \
+    libpq-dev \
     libonig-dev \
     libxml2-dev \
-    zip \
-    unzip \
-    git \
     curl \
-    libzip-dev \
-    sqlite3
+    && docker-php-ext-install pdo pdo_mysql zip mbstring exif pcntl bcmath
 
-# Install PHP extensions
-RUN docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl bcmath gd
-
-# Install Composer
+# Composerインストール
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set working directory
-WORKDIR /var/www
-
-# Copy application files
-COPY . .
-COPY .env.production .env
-# Install dependencies and cache configs
-RUN composer install --optimize-autoloader && \
-    php artisan config:clear && \
-    php artisan config:cache && \
-    php artisan route:cache && \
-    php artisan view:cache
-
-# Expose port
-EXPOSE ${PORT}
-
-# Start Laravel dev server
-CMD php artisan migrate:fresh --seed --force && php artisan serve --host=0.0.0.0 --port=${PORT}
-
+WORKDIR /var/www/html

@@ -5,30 +5,33 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        try {
-            config(['auth.defaults.guard' => 'web']);
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-            $credentials = $request->only('email', 'password');
-            \Log::info('認証開始', $credentials);
+        $user = User::where('email', $request->email)->first();
 
-            if (Auth::attempt($credentials)) {
-                $user = Auth::user();
-                \Log::info('認証成功', ['user' => $user]);
-                return response()->json(['user' => $user]);
-            }
-
-            \Log::warning('認証失敗', $credentials);
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['message' => 'Unauthorized'], 401);
-
-        } catch (\Throwable $e) {
-            \Log::error('ログイン中に例外発生: ' . $e->getMessage());
-            return response()->json(['message' => 'Internal Server Error'], 500);
         }
 
+        $token = $user->createToken('vue-spa-token')->accessToken;
+
+        return response()->json([
+            'token' => $token,
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+            ],
+        ]);
     }
 }
