@@ -11,8 +11,3 @@ Route::middleware('web')->group(function () {
         return response()->noContent();
     });
 });
-
-// Vue SPA 用の Catch-All ルート（最終行）
-Route::get('/{any}', function () {
-    return view('frontend.index');
-})->where('any', '.*')->name('spa');

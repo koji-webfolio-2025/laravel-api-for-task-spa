@@ -8,6 +8,7 @@ class Kernel extends HttpKernel
 {
     protected $middleware = [
         \Fruitcake\Cors\HandleCors::class,
+        \App\Http\Middleware\TrustProxies::class,
     ];
 
     protected $middlewareGroups = [
